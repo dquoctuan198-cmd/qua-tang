@@ -19,6 +19,7 @@
             height: 100vh;
         }
 
+        /* Nền tuyết rơi */
         .snow {
             position: absolute; width: 100%; height: 100%; top: 0; left: 0; pointer-events: none; z-index: 0;
             background: url('https://raw.githubusercontent.com/danielstuart14/CSS_Fades_And_Animations/master/snow.png');
@@ -45,7 +46,7 @@
         }
 
         #message1 {
-            position: absolute; top: 12%; width: 100%;
+            position: absolute; top: 10%; width: 100%;
             font-family: 'Dancing Script', cursive;
             font-size: 32px; color: #c2185b;
             text-shadow: 0 0 5px rgba(255,255,255,0.8);
@@ -65,13 +66,16 @@
             pointer-events: none; 
         }
 
+        /* Tối ưu hóa kích thước ảnh Polaroid cho iPhone 6s
+           Căn giữa trục tuyệt đối (Center = 0,0)
+        */
         .polaroid {
             position: absolute; 
-            width: 90px; height: 110px; 
+            width: 100px; height: 120px; 
             background: white; padding: 4px 4px 15px 4px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.2); 
             top: 50%; left: 50%; 
-            margin-top: -55px; margin-left: -45px; 
+            margin-top: -60px; margin-left: -50px; 
             opacity: 0;
             transform: translate(0, 0) scale(0);
             transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1), opacity 1.2s ease, box-shadow 0.3s; 
@@ -81,57 +85,64 @@
         .polaroid img { width: 100%; height: 100%; object-fit: cover; }
         
         .polaroid.flipped { 
-            transform: translate(0, 0) scale(2.5) rotate(0deg) !important; 
+            transform: translate(0, 0) scale(2.2) rotate(0deg) !important; 
             z-index: 999 !important; 
             box-shadow: 0 10px 30px rgba(255,20,147,0.5); 
         }
 
-        /* TỌA ĐỘ BAY RẢI RÁC LÚC ĐẦU */
-        .pos-1 { transform: translate(-100px, -160px) rotate(-15deg); opacity: 1; }
-        .pos-2 { transform: translate(110px, -150px) rotate(10deg); opacity: 1; }
-        .pos-3 { transform: translate(-120px, 0px) rotate(-5deg); opacity: 1; }
-        .pos-4 { transform: translate(130px, -20px) rotate(20deg); opacity: 1; }
-        .pos-5 { transform: translate(-90px, 150px) rotate(-25deg); opacity: 1; }
-        .pos-6 { transform: translate(100px, 140px) rotate(15deg); opacity: 1; }
-        .pos-7 { transform: translate(-40px, -100px) rotate(8deg); opacity: 1; }
-        .pos-8 { transform: translate(50px, -80px) rotate(-12deg); opacity: 1; }
-        .pos-9 { transform: translate(-60px, 60px) rotate(14deg); opacity: 1; }
-        .pos-10 { transform: translate(60px, 80px) rotate(-18deg); opacity: 1; }
-        .pos-11 { transform: translate(-20px, -20px) rotate(-5deg); opacity: 1; }
-        .pos-12 { transform: translate(10px, 180px) rotate(7deg); opacity: 1; }
+        /* TỌA ĐỘ BAY RẢI RÁC VỪA VẶN MÀN HÌNH ĐIỆN THOẠI */
+        .pos-1 { transform: translate(-90px, -180px) rotate(-15deg); opacity: 1; z-index: 1; }
+        .pos-2 { transform: translate(90px, -170px) rotate(10deg); opacity: 1; z-index: 2; }
+        .pos-3 { transform: translate(-120px, -10px) rotate(-5deg); opacity: 1; z-index: 3; }
+        .pos-4 { transform: translate(110px, -30px) rotate(20deg); opacity: 1; z-index: 4; }
+        .pos-5 { transform: translate(-90px, 150px) rotate(-25deg); opacity: 1; z-index: 5; }
+        .pos-6 { transform: translate(90px, 140px) rotate(15deg); opacity: 1; z-index: 6; }
+        .pos-7 { transform: translate(-30px, -110px) rotate(8deg); opacity: 1; z-index: 7; }
+        .pos-8 { transform: translate(40px, -90px) rotate(-12deg); opacity: 1; z-index: 8; }
+        .pos-9 { transform: translate(-50px, 70px) rotate(14deg); opacity: 1; z-index: 9; }
+        .pos-10 { transform: translate(50px, 90px) rotate(-18deg); opacity: 1; z-index: 10; }
+        .pos-11 { transform: translate(-10px, -10px) rotate(-5deg); opacity: 1; z-index: 11; }
+        .pos-12 { transform: translate(10px, 190px) rotate(7deg); opacity: 1; z-index: 12; }
 
-        /* TỌA ĐỘ XẾP HÌNH TRÁI TIM ĐẶC KÍN (CHO MOBILE) */
-        .heart-pos-1 { transform: translate(-35px, -70px) rotate(-15deg); z-index: 1; opacity: 1;}
-        .heart-pos-2 { transform: translate(35px, -70px) rotate(15deg); z-index: 1; opacity: 1;}
-        .heart-pos-3 { transform: translate(-75px, -90px) rotate(-25deg); z-index: 2; opacity: 1;}
-        .heart-pos-4 { transform: translate(75px, -90px) rotate(25deg); z-index: 2; opacity: 1;}
-        .heart-pos-5 { transform: translate(-110px, -30px) rotate(-35deg); z-index: 3; opacity: 1;}
-        .heart-pos-6 { transform: translate(110px, -30px) rotate(35deg); z-index: 3; opacity: 1;}
-        .heart-pos-7 { transform: translate(-90px, 40px) rotate(-20deg); z-index: 4; opacity: 1;}
-        .heart-pos-8 { transform: translate(90px, 40px) rotate(20deg); z-index: 4; opacity: 1;}
-        .heart-pos-9 { transform: translate(-55px, 95px) rotate(-10deg); z-index: 5; opacity: 1;}
-        .heart-pos-10 { transform: translate(55px, 95px) rotate(10deg); z-index: 5; opacity: 1;}
-        .heart-pos-11 { transform: translate(-15px, 140px) rotate(-5deg); z-index: 6; opacity: 1;}
-        .heart-pos-12 { transform: translate(15px, 140px) rotate(5deg); z-index: 6; opacity: 1;}
+        /* ===============================================================
+           TỌA ĐỘ TRÁI TIM CHUẨN IPHONE 6S (KHÉP KÍN, ĐAN LỚP, VO TRÒN) 
+           =============================================================== */
+        
+        /* Cánh TRÁI của tim */
+        .heart-pos-1 { transform: translate(-20px, -30px) rotate(-15deg); z-index: 2; opacity: 1;}  /* Lõm trái */
+        .heart-pos-2 { transform: translate(-50px, -80px) rotate(-35deg); z-index: 1; opacity: 1;}  /* Đỉnh trong trái */
+        .heart-pos-3 { transform: translate(-100px, -50px) rotate(-50deg); z-index: 3; opacity: 1;} /* Đỉnh ngoài trái */
+        .heart-pos-4 { transform: translate(-105px, 20px) rotate(-15deg); z-index: 4; opacity: 1;}  /* Hông trái */
+        .heart-pos-5 { transform: translate(-70px, 80px) rotate(5deg); z-index: 5; opacity: 1;}     /* Dưới trái */
+        .heart-pos-6 { transform: translate(-25px, 125px) rotate(25deg); z-index: 6; opacity: 1;}   /* Đáy chóp trái */
+        
+        /* Cánh PHẢI của tim */
+        .heart-pos-7 { transform: translate(25px, 125px) rotate(-25deg); z-index: 6; opacity: 1;}   /* Đáy chóp phải */
+        .heart-pos-8 { transform: translate(70px, 80px) rotate(-5deg); z-index: 5; opacity: 1;}     /* Dưới phải */
+        .heart-pos-9 { transform: translate(105px, 20px) rotate(15deg); z-index: 4; opacity: 1;}    /* Hông phải */
+        .heart-pos-10 { transform: translate(100px, -50px) rotate(50deg); z-index: 3; opacity: 1;}  /* Đỉnh ngoài phải */
+        .heart-pos-11 { transform: translate(50px, -80px) rotate(35deg); z-index: 1; opacity: 1;}   /* Đỉnh trong phải */
+        .heart-pos-12 { transform: translate(20px, -30px) rotate(15deg); z-index: 2; opacity: 1;}   /* Lõm phải */
 
-        /* TỌA ĐỘ XẾP HÌNH TRÁI TIM (CHO MÁY TÍNH) */
+        /* Nếu mở trên màn hình máy tính to hơn */
         @media (min-width: 768px) {
-            .polaroid { width: 120px; height: 150px; margin-top: -75px; margin-left: -60px; }
-            #message1 { font-size: 45px; top: 8%; }
+            .polaroid { width: 130px; height: 160px; margin-top: -80px; margin-left: -65px; }
+            #message1 { font-size: 45px; top: 10%; }
             #final-message { font-size: 65px; bottom: 8%; }
             
-            .heart-pos-1 { transform: translate(-50px, -100px) rotate(-15deg); }
-            .heart-pos-2 { transform: translate(50px, -100px) rotate(15deg); }
-            .heart-pos-3 { transform: translate(-110px, -130px) rotate(-25deg); }
-            .heart-pos-4 { transform: translate(110px, -130px) rotate(25deg); }
-            .heart-pos-5 { transform: translate(-160px, -40px) rotate(-35deg); }
-            .heart-pos-6 { transform: translate(160px, -40px) rotate(35deg); }
-            .heart-pos-7 { transform: translate(-130px, 60px) rotate(-20deg); }
-            .heart-pos-8 { transform: translate(130px, 60px) rotate(20deg); }
-            .heart-pos-9 { transform: translate(-80px, 140px) rotate(-10deg); }
-            .heart-pos-10 { transform: translate(80px, 140px) rotate(10deg); }
-            .heart-pos-11 { transform: translate(-25px, 200px) rotate(-5deg); }
-            .heart-pos-12 { transform: translate(25px, 200px) rotate(5deg); }
+            .heart-pos-1 { transform: translate(-30px, -40px) rotate(-15deg); }
+            .heart-pos-2 { transform: translate(-70px, -110px) rotate(-35deg); }
+            .heart-pos-3 { transform: translate(-140px, -70px) rotate(-50deg); }
+            .heart-pos-4 { transform: translate(-150px, 30px) rotate(-15deg); }
+            .heart-pos-5 { transform: translate(-100px, 110px) rotate(5deg); }
+            .heart-pos-6 { transform: translate(-35px, 175px) rotate(25deg); }
+            
+            .heart-pos-7 { transform: translate(35px, 175px) rotate(-25deg); }
+            .heart-pos-8 { transform: translate(100px, 110px) rotate(-5deg); }
+            .heart-pos-9 { transform: translate(150px, 30px) rotate(15deg); }
+            .heart-pos-10 { transform: translate(140px, -70px) rotate(50deg); }
+            .heart-pos-11 { transform: translate(70px, -110px) rotate(35deg); }
+            .heart-pos-12 { transform: translate(30px, -40px) rotate(15deg); }
         }
 
         .mouse-heart {
@@ -290,5 +301,7 @@
             spawnHeart(touch.pageX, touch.pageY);
         }, { passive: true }); 
     </script>
+</body>
+</html>
 </body>
 </html>
