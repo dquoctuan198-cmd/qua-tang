@@ -19,19 +19,16 @@
             height: 100vh;
         }
 
-        /* Nền tuyết rơi */
         .snow {
             position: absolute; width: 100%; height: 100%; top: 0; left: 0; pointer-events: none; z-index: 0;
             background: url('https://raw.githubusercontent.com/danielstuart14/CSS_Fades_And_Animations/master/snow.png');
-            animation: fall 20s linear infinite;
-            opacity: 0.6;
+            animation: fall 20s linear infinite; opacity: 0.6;
         }
         @keyframes fall {
             0% { background-position: 0px 0px; }
             100% { background-position: 500px 1000px; }
         }
 
-        /* Hộp quà */
         #gift-container {
             z-index: 10; text-align: center; cursor: pointer;
             transition: transform 0.5s, opacity 0.5s;
@@ -43,97 +40,109 @@
         @keyframes glow { from { text-shadow: 0 0 10px #ff0055, 0 0 20px #ff0055; } to { text-shadow: 0 0 20px #ffaa00, 0 0 30px #ffaa00; } }
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
 
-        /* Vùng nội dung chính */
+        /* Vùng nội dung chính bao phủ toàn màn hình */
         #main-content {
             display: none; width: 100%; height: 100%; position: absolute; top: 0; left: 0; z-index: 5;
-            flex-direction: column; align-items: center; justify-content: center;
         }
 
-        /* Lời nhắn xuất hiện rồi biến mất */
+        /* Lời nhắn đầu - Đưa lên góc trên */
         #message1 {
+            position: absolute; top: 12%; width: 100%;
             font-family: 'Dancing Script', cursive;
             font-size: 32px; color: #c2185b;
             text-shadow: 0 0 5px rgba(255,255,255,0.8);
-            text-align: center; margin-bottom: 20px;
-            min-height: 80px; z-index: 6; padding: 0 20px;
-            opacity: 0;
-            transition: opacity 1s ease-in-out;
+            text-align: center; padding: 0 20px;
+            opacity: 0; transition: opacity 1s ease-in-out; z-index: 6;
         }
 
-        /* Polaroid Gallery */
-        .gallery { position: relative; width: 300px; height: 300px; transition: all 2s ease-in-out; margin-top: 50px; }
+        /* Lời nhắn cuối - Đưa xuống góc dưới */
+        #final-message {
+            position: absolute; bottom: 10%; width: 100%;
+            font-family: 'Dancing Script', cursive;
+            font-size: 45px; color: #d81b60; text-shadow: 0 0 10px #fff, 0 0 20px #ffdde1;
+            opacity: 0; transition: all 1s ease-in-out; text-align: center; z-index: 10;
+        }
+
+        /* Vùng chứa ảnh - Trọng tâm giữa màn hình */
+        .gallery {
+            position: absolute; width: 100%; height: 100%; top: 0; left: 0;
+            pointer-events: none; /* Để có thể vuốt qua thả tim */
+        }
+
+        /* Thiết kế ảnh Polaroid - Định vị chính giữa Center(0,0) */
         .polaroid {
-            position: absolute; width: 100px; height: 120px; background: white; padding: 4px 4px 15px 4px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3); opacity: 0; transform: scale(0) rotate(0deg);
-            transition: all 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55); cursor: pointer;
+            position: absolute; 
+            width: 90px; height: 110px; /* Thu gọn chút để 12 ảnh không cắn lẹm vào nhau */
+            background: white; padding: 4px 4px 15px 4px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2); 
+            top: 50%; left: 50%; 
+            margin-top: -55px; margin-left: -45px; /* Kéo tâm ảnh về chính giữa màn hình */
+            opacity: 0;
+            transform: translate(0, 0) scale(0);
+            /* Dùng transform để di chuyển -> cực kỳ mượt mà trên Mobile */
+            transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1), opacity 1.2s ease, box-shadow 0.3s; 
+            will-change: transform, opacity;
+            pointer-events: auto; cursor: pointer;
         }
         .polaroid img { width: 100%; height: 100%; object-fit: cover; }
         
+        /* Hiệu ứng phóng to khi bấm vào ảnh */
         .polaroid.flipped { 
-            transform: scale(2) rotate(0deg) translate(-50%, -50%) !important; 
-            top: 50% !important; left: 50% !important; z-index: 999 !important; 
-            box-shadow: 0 10px 30px rgba(255,20,147,0.6); 
+            transform: translate(0, 0) scale(2.5) rotate(0deg) !important; 
+            z-index: 999 !important; 
+            box-shadow: 0 10px 30px rgba(255,20,147,0.5); 
         }
 
-        /* 12 Vị trí rải ảnh lộn xộn ban đầu */
-        .pos-1 { top: -20%; left: -30%; transform: rotate(-15deg); }
-        .pos-2 { top: -40%; left: 30%; transform: rotate(10deg); }
-        .pos-3 { top: 10%; left: -50%; transform: rotate(-5deg); }
-        .pos-4 { top: 20%; left: 60%; transform: rotate(20deg); }
-        .pos-5 { top: 50%; left: -60%; transform: rotate(-25deg); }
-        .pos-6 { top: 60%; left: 50%; transform: rotate(15deg); }
-        .pos-7 { top: 90%; left: -40%; transform: rotate(-10deg); }
-        .pos-8 { top: 80%; left: 40%; transform: rotate(25deg); }
-        .pos-9 { top: -10%; left: 0%; transform: rotate(-8deg); }
-        .pos-10 { top: 40%; left: 10%; transform: rotate(12deg); }
-        .pos-11 { top: 110%; left: -10%; transform: rotate(-18deg); }
-        .pos-12 { top: 100%; left: 20%; transform: rotate(8deg); }
+        /* ================= TỌA ĐỘ MỚI TỐI ƯU ================= */
+        /* 1. Trạng thái rải rác lúc đầu (Mở rộng phạm vi để tràn ngập màn hình) */
+        .pos-1 { transform: translate(-100px, -160px) rotate(-15deg) scale(0.9); opacity: 1; }
+        .pos-2 { transform: translate(110px, -150px) rotate(10deg) scale(0.9); opacity: 1; }
+        .pos-3 { transform: translate(-120px, 0px) rotate(-5deg) scale(0.9); opacity: 1; }
+        .pos-4 { transform: translate(130px, -20px) rotate(20deg) scale(0.9); opacity: 1; }
+        .pos-5 { transform: translate(-90px, 150px) rotate(-25deg) scale(0.9); opacity: 1; }
+        .pos-6 { transform: translate(100px, 140px) rotate(15deg) scale(0.9); opacity: 1; }
+        .pos-7 { transform: translate(-40px, -100px) rotate(8deg) scale(0.9); opacity: 1; }
+        .pos-8 { transform: translate(50px, -80px) rotate(-12deg) scale(0.9); opacity: 1; }
+        .pos-9 { transform: translate(-60px, 60px) rotate(14deg) scale(0.9); opacity: 1; }
+        .pos-10 { transform: translate(60px, 80px) rotate(-18deg) scale(0.9); opacity: 1; }
+        .pos-11 { transform: translate(-20px, -20px) rotate(-5deg) scale(0.9); opacity: 1; }
+        .pos-12 { transform: translate(10px, 180px) rotate(7deg) scale(0.9); opacity: 1; }
 
-        /* TOẠ ĐỘ MỚI: Xếp thành hình trái tim TRÒN TRỊA, BẦU BĨNH (Cho Mobile) */
-        .heart-pos-1 { top: -30px; left: -70px; transform: rotate(-25deg) scale(0.8); z-index: 2;}
-        .heart-pos-2 { top: -60px; left: 0px; transform: rotate(-10deg) scale(0.8); z-index: 1;}
-        .heart-pos-3 { top: -60px; left: 70px; transform: rotate(10deg) scale(0.8); z-index: 1;}
-        .heart-pos-4 { top: -30px; left: 140px; transform: rotate(25deg) scale(0.8); z-index: 2;}
+        /* 2. Trạng thái xếp thành hình Trái Tim (Rộng, thoáng, không bị ép) */
+        .heart-pos-1 { transform: translate(-90px, -125px) rotate(-22deg) scale(0.9); z-index: 2; opacity: 1;}
+        .heart-pos-2 { transform: translate(-30px, -150px) rotate(-10deg) scale(0.9); z-index: 1; opacity: 1;}
+        .heart-pos-3 { transform: translate(40px, -150px) rotate(10deg) scale(0.9); z-index: 1; opacity: 1;}
+        .heart-pos-4 { transform: translate(100px, -125px) rotate(22deg) scale(0.9); z-index: 2; opacity: 1;}
         
-        .heart-pos-5 { top: 25px; left: -95px; transform: rotate(-15deg) scale(0.8); z-index: 3;}
-        .heart-pos-6 { top: 15px; left: -10px; transform: rotate(-5deg) scale(0.8); z-index: 2;}
-        .heart-pos-7 { top: 15px; left: 80px; transform: rotate(5deg) scale(0.8); z-index: 2;}
-        .heart-pos-8 { top: 25px; left: 165px; transform: rotate(15deg) scale(0.8); z-index: 3;}
+        .heart-pos-5 { transform: translate(-135px, -35px) rotate(-15deg) scale(0.9); z-index: 3; opacity: 1;}
+        .heart-pos-6 { transform: translate(-50px, -50px) rotate(-5deg) scale(0.9); z-index: 2; opacity: 1;}
+        .heart-pos-7 { transform: translate(60px, -50px) rotate(5deg) scale(0.9); z-index: 2; opacity: 1;}
+        .heart-pos-8 { transform: translate(145px, -35px) rotate(15deg) scale(0.9); z-index: 3; opacity: 1;}
         
-        .heart-pos-9 { top: 85px; left: -55px; transform: rotate(-10deg) scale(0.8); z-index: 4;}
-        .heart-pos-10 { top: 85px; left: 125px; transform: rotate(10deg) scale(0.8); z-index: 4;}
+        .heart-pos-9 { transform: translate(-85px, 65px) rotate(-10deg) scale(0.9); z-index: 4; opacity: 1;}
+        .heart-pos-10 { transform: translate(95px, 65px) rotate(10deg) scale(0.9); z-index: 4; opacity: 1;}
         
-        .heart-pos-11 { top: 135px; left: -10px; transform: rotate(-5deg) scale(0.8); z-index: 5;}
-        .heart-pos-12 { top: 135px; left: 70px; transform: rotate(5deg) scale(0.8); z-index: 5;}
+        .heart-pos-11 { transform: translate(-30px, 155px) rotate(-6deg) scale(0.9); z-index: 5; opacity: 1;}
+        .heart-pos-12 { transform: translate(40px, 155px) rotate(6deg) scale(0.9); z-index: 5; opacity: 1;}
 
-        /* Lời nhắn cuối cùng */
-        #final-message {
-            position: absolute; bottom: 8%; font-family: 'Dancing Script', cursive;
-            font-size: 40px; color: #d81b60; text-shadow: 0 0 10px #fff, 0 0 20px #ffdde1;
-            opacity: 0; transition: all 1s ease-in-out; text-align: center; width: 100%; z-index: 10;
-        }
-
-        /* TOẠ ĐỘ MỚI: Xếp thành hình trái tim TRÒN TRỊA, BẦU BĨNH (Cho Máy Tính) */
+        /* Responsive cho máy tính to hơn */
         @media (min-width: 768px) {
-            .polaroid { width: 130px; height: 160px; }
+            .polaroid { width: 120px; height: 150px; margin-top: -75px; margin-left: -60px; }
             #message1 { font-size: 45px; }
-            #final-message { font-size: 60px; bottom: 12%; }
+            #final-message { font-size: 65px; bottom: 12%; }
             
-            .heart-pos-1 { top: -40px; left: -110px; transform: rotate(-25deg) scale(1); }
-            .heart-pos-2 { top: -85px; left: 0px; transform: rotate(-10deg) scale(1); }
-            .heart-pos-3 { top: -85px; left: 110px; transform: rotate(10deg) scale(1); }
-            .heart-pos-4 { top: -40px; left: 220px; transform: rotate(25deg) scale(1); }
-            
-            .heart-pos-5 { top: 45px; left: -150px; transform: rotate(-15deg) scale(1); }
-            .heart-pos-6 { top: 25px; left: -20px; transform: rotate(-5deg) scale(1); }
-            .heart-pos-7 { top: 25px; left: 130px; transform: rotate(5deg) scale(1); }
-            .heart-pos-8 { top: 45px; left: 260px; transform: rotate(15deg) scale(1); }
-            
-            .heart-pos-9 { top: 140px; left: -80px; transform: rotate(-10deg) scale(1); }
-            .heart-pos-10 { top: 140px; left: 190px; transform: rotate(10deg) scale(1); }
-            
-            .heart-pos-11 { top: 220px; left: -10px; transform: rotate(-5deg) scale(1); }
-            .heart-pos-12 { top: 220px; left: 120px; transform: rotate(5deg) scale(1); }
+            .heart-pos-1 { transform: translate(-130px, -160px) rotate(-22deg) scale(1); }
+            .heart-pos-2 { transform: translate(-40px, -190px) rotate(-10deg) scale(1); }
+            .heart-pos-3 { transform: translate(50px, -190px) rotate(10deg) scale(1); }
+            .heart-pos-4 { transform: translate(140px, -160px) rotate(22deg) scale(1); }
+            .heart-pos-5 { transform: translate(-180px, -40px) rotate(-15deg) scale(1); }
+            .heart-pos-6 { transform: translate(-65px, -60px) rotate(-5deg) scale(1); }
+            .heart-pos-7 { transform: translate(75px, -60px) rotate(5deg) scale(1); }
+            .heart-pos-8 { transform: translate(190px, -40px) rotate(15deg) scale(1); }
+            .heart-pos-9 { transform: translate(-110px, 90px) rotate(-10deg) scale(1); }
+            .heart-pos-10 { transform: translate(120px, 90px) rotate(10deg) scale(1); }
+            .heart-pos-11 { transform: translate(-40px, 200px) rotate(-6deg) scale(1); }
+            .heart-pos-12 { transform: translate(50px, 200px) rotate(6deg) scale(1); }
         }
 
         /* Hiệu ứng trái tim theo chuột/vuốt */
@@ -161,18 +170,18 @@
         <div id="message1"></div>
         
         <div class="gallery" id="gallery">
-            <div class="polaroid pos-1" onclick="flipImage(this)"><img src="anh1.jpg" alt="Ảnh 1"></div>
-            <div class="polaroid pos-2" onclick="flipImage(this)"><img src="anh2.jpg" alt="Ảnh 2"></div>
-            <div class="polaroid pos-3" onclick="flipImage(this)"><img src="anh3.jpg" alt="Ảnh 3"></div>
-            <div class="polaroid pos-4" onclick="flipImage(this)"><img src="anh4.jpg" alt="Ảnh 4"></div>
-            <div class="polaroid pos-5" onclick="flipImage(this)"><img src="anh5.jpg" alt="Ảnh 5"></div>
-            <div class="polaroid pos-6" onclick="flipImage(this)"><img src="anh6.jpg" alt="Ảnh 6"></div>
-            <div class="polaroid pos-7" onclick="flipImage(this)"><img src="anh7.jpg" alt="Ảnh 7"></div>
-            <div class="polaroid pos-8" onclick="flipImage(this)"><img src="anh8.jpg" alt="Ảnh 8"></div>
-            <div class="polaroid pos-9" onclick="flipImage(this)"><img src="anh9.jpg" alt="Ảnh 9"></div>
-            <div class="polaroid pos-10" onclick="flipImage(this)"><img src="anh10.jpg" alt="Ảnh 10"></div>
-            <div class="polaroid pos-11" onclick="flipImage(this)"><img src="anh11.jpg" alt="Ảnh 11"></div>
-            <div class="polaroid pos-12" onclick="flipImage(this)"><img src="anh12.jpg" alt="Ảnh 12"></div>
+            <div class="polaroid" id="p1" onclick="flipImage(this)"><img src="anh1.jpg" alt="Ảnh 1"></div>
+            <div class="polaroid" id="p2" onclick="flipImage(this)"><img src="anh2.jpg" alt="Ảnh 2"></div>
+            <div class="polaroid" id="p3" onclick="flipImage(this)"><img src="anh3.jpg" alt="Ảnh 3"></div>
+            <div class="polaroid" id="p4" onclick="flipImage(this)"><img src="anh4.jpg" alt="Ảnh 4"></div>
+            <div class="polaroid" id="p5" onclick="flipImage(this)"><img src="anh5.jpg" alt="Ảnh 5"></div>
+            <div class="polaroid" id="p6" onclick="flipImage(this)"><img src="anh6.jpg" alt="Ảnh 6"></div>
+            <div class="polaroid" id="p7" onclick="flipImage(this)"><img src="anh7.jpg" alt="Ảnh 7"></div>
+            <div class="polaroid" id="p8" onclick="flipImage(this)"><img src="anh8.jpg" alt="Ảnh 8"></div>
+            <div class="polaroid" id="p9" onclick="flipImage(this)"><img src="anh9.jpg" alt="Ảnh 9"></div>
+            <div class="polaroid" id="p10" onclick="flipImage(this)"><img src="anh10.jpg" alt="Ảnh 10"></div>
+            <div class="polaroid" id="p11" onclick="flipImage(this)"><img src="anh11.jpg" alt="Ảnh 11"></div>
+            <div class="polaroid" id="p12" onclick="flipImage(this)"><img src="anh12.jpg" alt="Ảnh 12"></div>
         </div>
 
         <div id="final-message"></div>
@@ -197,7 +206,7 @@
             
             setTimeout(() => {
                 giftContainer.style.display = 'none';
-                document.getElementById('main-content').style.display = 'flex';
+                document.getElementById('main-content').style.display = 'block';
                 showIntroLines(); 
             }, 500);
         }
@@ -220,12 +229,12 @@
             }
         }
 
+        // Logic điều khiển Class mượt mà
         function showPhotos() {
             const photos = document.querySelectorAll('.polaroid');
             photos.forEach((photo, index) => {
                 setTimeout(() => {
-                    photo.style.opacity = '1';
-                    photo.style.transform = getComputedStyle(photo).transform + " scale(1)";
+                    photo.classList.add(`pos-${index + 1}`);
                 }, index * 200); 
             });
             setTimeout(formHeart, photos.length * 200 + 1000);
@@ -234,9 +243,10 @@
         function formHeart() {
             const photos = document.querySelectorAll('.polaroid');
             photos.forEach((photo, index) => {
-                photo.className = `polaroid heart-pos-${index + 1}`;
+                photo.classList.remove(`pos-${index + 1}`);
+                photo.classList.add(`heart-pos-${index + 1}`);
             });
-            setTimeout(fireworksAndFinalText, 2000);
+            setTimeout(fireworksAndFinalText, 1500);
         }
 
         function fireworksAndFinalText() {
@@ -271,7 +281,7 @@
             }
         }
 
-        // --- Hàm tạo trái tim dùng chung cho cả Chuột và Vuốt (Touch) ---
+        // Hàm tạo trái tim cho cả Chuột và Vuốt
         function spawnHeart(x, y) {
             if(Math.random() > 0.8) return; 
             const heart = document.createElement('div');
@@ -285,17 +295,14 @@
             setTimeout(() => { heart.remove(); }, 1000);
         }
 
-        // Tạo trái tim khi di chuyển chuột (Máy tính)
         document.addEventListener('mousemove', function(e) {
             spawnHeart(e.pageX, e.pageY);
         });
 
-        // Tạo trái tim khi vuốt chạm (Điện thoại)
         document.addEventListener('touchmove', function(e) {
-            // Lấy tọa độ của ngón tay đầu tiên chạm vào màn hình
             const touch = e.touches[0];
             spawnHeart(touch.pageX, touch.pageY);
-        }, { passive: true }); // Tối ưu hiệu suất cuộn trang trên mobile
+        }, { passive: true }); 
     </script>
 </body>
 </html>
