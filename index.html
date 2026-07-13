@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Special Gift For You ❤️</title>
+    <title>Món quà bí mật dành riêng cho Công Chúa ❤️</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            background-color: #0a0a0a;
+            /* Đổi nền sang dải màu hồng gradient cực kỳ lãng mạn */
+            background: linear-gradient(135deg, #ffdde1 0%, #ee9ca7 100%);
             color: #fff;
             font-family: 'Quicksand', sans-serif;
             overflow: hidden;
@@ -19,12 +20,12 @@
             height: 100vh;
         }
 
-        /* Hiệu ứng nền sao / tuyết rơi */
+        /* Hiệu ứng nền tuyết rơi trắng trên nền hồng */
         .snow {
             position: absolute; width: 100%; height: 100%; top: 0; left: 0; pointer-events: none; z-index: 0;
             background: url('https://raw.githubusercontent.com/danielstuart14/CSS_Fades_And_Animations/master/snow.png');
             animation: fall 20s linear infinite;
-            opacity: 0.5;
+            opacity: 0.6;
         }
         @keyframes fall {
             0% { background-position: 0px 0px; }
@@ -42,7 +43,8 @@
             font-size: 80px;
             animation: pulse 1.5s infinite, glow 2s infinite alternate;
         }
-        .click-text { margin-top: 20px; font-size: 20px; color: #ffb3c6; animation: blink 1s infinite; }
+        /* Đổi màu chữ lúc chưa mở quà để nổi bật trên nền hồng */
+        .click-text { margin-top: 20px; font-size: 20px; color: #d81b60; font-weight: bold; animation: blink 1s infinite; }
         
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
         @keyframes glow { from { text-shadow: 0 0 10px #ff0055, 0 0 20px #ff0055; } to { text-shadow: 0 0 20px #ffaa00, 0 0 30px #ffaa00; } }
@@ -57,7 +59,10 @@
         /* Lời nhắn viết tay */
         #message1 {
             font-family: 'Dancing Script', cursive;
-            font-size: 35px; color: #ffccd5; text-align: center; margin-bottom: 20px;
+            font-size: 35px; 
+            color: #c2185b; /* Màu đỏ hồng đậm để dễ đọc trên nền hồng sáng */
+            text-shadow: 0 0 5px rgba(255,255,255,0.8);
+            text-align: center; margin-bottom: 20px;
             min-height: 50px; z-index: 6; padding: 0 20px;
         }
 
@@ -70,19 +75,19 @@
         .polaroid {
             position: absolute; width: 100px; height: 120px;
             background: white; padding: 4px 4px 15px 4px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
             opacity: 0; transform: scale(0) rotate(0deg);
             transition: all 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             cursor: pointer;
         }
         .polaroid img { width: 100%; height: 100%; object-fit: cover; }
         
-        /* Hiệu ứng lật ảnh khi click vào Polaroid */
+        /* Hiệu ứng lật ảnh khi click */
         .polaroid.flipped { 
             transform: scale(2) rotate(0deg) translate(-50%, -50%) !important; 
             top: 50% !important; left: 50% !important; 
             z-index: 999 !important; 
-            box-shadow: 0 10px 30px rgba(255,105,180,0.8); 
+            box-shadow: 0 10px 30px rgba(255,20,147,0.6); 
         }
 
         /* 12 Vị trí rải ảnh lộn xộn ban đầu */
@@ -99,7 +104,7 @@
         .pos-11 { top: 110%; left: -10%; transform: rotate(-18deg); }
         .pos-12 { top: 100%; left: 20%; transform: rotate(8deg); }
 
-        /* 12 Vị trí xếp thành hình trái tim (Tỷ lệ cho Mobile) */
+        /* 12 Vị trí xếp thành hình trái tim */
         .heart-pos-1 { top: -40px; left: -60px; transform: rotate(-20deg) scale(0.8); z-index: 2;}
         .heart-pos-2 { top: -60px; left: 0px; transform: rotate(-10deg) scale(0.8); z-index: 1;}
         .heart-pos-3 { top: -60px; left: 70px; transform: rotate(10deg) scale(0.8); z-index: 1;}
@@ -119,11 +124,13 @@
         /* Lời nhắn cuối cùng */
         #final-message {
             position: absolute; bottom: 8%; font-family: 'Dancing Script', cursive;
-            font-size: 45px; color: #ff0055; text-shadow: 0 0 10px #fff;
+            font-size: 45px; 
+            color: #d81b60; /* Màu đỏ đô */
+            text-shadow: 0 0 10px #fff, 0 0 20px #ffdde1; /* Viền sáng trắng hồng */
             opacity: 0; transition: opacity 2s ease-in-out; text-align: center; width: 100%; z-index: 10;
         }
 
-        /* Responsive cho máy tính (Phóng to trái tim) */
+        /* Responsive cho máy tính */
         @media (min-width: 768px) {
             .polaroid { width: 130px; height: 160px; }
             #message1 { font-size: 50px; }
@@ -144,6 +151,21 @@
             
             .heart-pos-11 { top: 230px; left: -10px; transform: rotate(-5deg) scale(1); }
             .heart-pos-12 { top: 230px; left: 140px; transform: rotate(5deg) scale(1); }
+        }
+
+        /* --- CSS MỚI CHO HIỆU ỨNG TRÁI TIM THEO CHUỘT --- */
+        .mouse-heart {
+            position: absolute;
+            pointer-events: none; /* Tránh cản trở việc click vào ảnh */
+            font-size: 20px;
+            color: #ff2a70;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            animation: floatUp 1s ease-out forwards;
+        }
+        @keyframes floatUp {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+            100% { transform: translate(-50%, -150%) scale(1.5); opacity: 0; }
         }
     </style>
 </head>
@@ -176,12 +198,12 @@
             <div class="polaroid pos-12" onclick="flipImage(this)"><img src="anh12.jpg" alt="Ảnh 12"></div>
         </div>
 
-        <div id="final-message">I Love You ❤️</div>
+        <div id="final-message">Yêu Em Mãi Mãi ❤️</div>
     </div>
 
     <script>
         // Lời nhắn bạn muốn viết
-        const textToType = "Anh có một điều bí mật muốn dành cho em...";
+        const textToType = "Gửi em, cô gái xinh đẹp nhất của anh... Cảm ơn em vì đã đến! ❤️";
         let typeIndex = 0;
 
         function openGift() {
@@ -204,7 +226,7 @@
             if (typeIndex < textToType.length) {
                 document.getElementById("message1").innerHTML += textToType.charAt(typeIndex);
                 typeIndex++;
-                setTimeout(typeWriter, 80); // Tăng tốc độ gõ chữ một chút
+                setTimeout(typeWriter, 80); 
             } else {
                 showPhotos();
             }
@@ -215,12 +237,10 @@
             photos.forEach((photo, index) => {
                 setTimeout(() => {
                     photo.style.opacity = '1';
-                    // Phục hồi lại transform ban đầu thêm scale 1
                     photo.style.transform = getComputedStyle(photo).transform + " scale(1)";
-                }, index * 250); // Rải ảnh nhanh hơn (cách nhau 0.25 giây)
+                }, index * 250); 
             });
 
-            // Sau khi rải xong 12 ảnh, đợi thêm 1.5 giây rồi ghép trái tim
             setTimeout(formHeart, photos.length * 250 + 1500);
         }
 
@@ -230,7 +250,6 @@
                 photo.className = `polaroid heart-pos-${index + 1}`;
             });
 
-            // Hiện chữ chốt và bắn pháo hoa
             setTimeout(fireworksAndFinalText, 2500);
         }
 
@@ -244,10 +263,10 @@
             
             setInterval(() => {
                 confetti({
-                    particleCount: 15, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#ff0055', '#ffccd5']
+                    particleCount: 15, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#ff0055', '#ffccd5', '#ffffff']
                 });
                 confetti({
-                    particleCount: 15, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#ff0055', '#ffccd5']
+                    particleCount: 15, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#ff0055', '#ffccd5', '#ffffff']
                 });
             }, 3000);
         }
@@ -261,6 +280,29 @@
                 element.classList.add('flipped');
             }
         }
+
+        // --- SCRIPT MỚI: HIỆU ỨNG TRÁI TIM BAY THEO CHUỘT ---
+        document.addEventListener('mousemove', function(e) {
+            // Giới hạn tỷ lệ tạo trái tim để không bị lag web (tạo ngẫu nhiên)
+            if(Math.random() > 0.8) return; 
+
+            const heart = document.createElement('div');
+            heart.innerHTML = '❤️'; // Hoặc '💖'
+            heart.className = 'mouse-heart';
+            heart.style.left = e.pageX + 'px';
+            heart.style.top = e.pageY + 'px';
+            
+            // Đổi kích thước ngẫu nhiên một chút cho tự nhiên
+            const size = Math.floor(Math.random() * 15) + 10;
+            heart.style.fontSize = size + 'px';
+
+            document.body.appendChild(heart);
+
+            // Xóa trái tim sau 1 giây (khớp với thời gian animation)
+            setTimeout(() => {
+                heart.remove();
+            }, 1000);
+        });
     </script>
 </body>
 </html>
