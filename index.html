@@ -89,19 +89,22 @@
         .pos-11 { top: 110%; left: -10%; transform: rotate(-18deg); }
         .pos-12 { top: 100%; left: 20%; transform: rotate(8deg); }
 
-        /* 12 Vị trí xếp thành hình trái tim */
-        .heart-pos-1 { top: -40px; left: -60px; transform: rotate(-20deg) scale(0.8); z-index: 2;}
+        /* TOẠ ĐỘ MỚI: Xếp thành hình trái tim TRÒN TRỊA, BẦU BĨNH (Cho Mobile) */
+        .heart-pos-1 { top: -30px; left: -70px; transform: rotate(-25deg) scale(0.8); z-index: 2;}
         .heart-pos-2 { top: -60px; left: 0px; transform: rotate(-10deg) scale(0.8); z-index: 1;}
         .heart-pos-3 { top: -60px; left: 70px; transform: rotate(10deg) scale(0.8); z-index: 1;}
-        .heart-pos-4 { top: -40px; left: 130px; transform: rotate(20deg) scale(0.8); z-index: 2;}
-        .heart-pos-5 { top: 20px; left: -80px; transform: rotate(-15deg) scale(0.8); z-index: 3;}
-        .heart-pos-6 { top: 10px; left: -10px; transform: rotate(-5deg) scale(0.8); z-index: 2;}
-        .heart-pos-7 { top: 10px; left: 80px; transform: rotate(5deg) scale(0.8); z-index: 2;}
-        .heart-pos-8 { top: 20px; left: 150px; transform: rotate(15deg) scale(0.8); z-index: 3;}
-        .heart-pos-9 { top: 80px; left: -40px; transform: rotate(-10deg) scale(0.8); z-index: 4;}
-        .heart-pos-10 { top: 80px; left: 110px; transform: rotate(10deg) scale(0.8); z-index: 4;}
-        .heart-pos-11 { top: 130px; left: 0px; transform: rotate(-5deg) scale(0.8); z-index: 5;}
-        .heart-pos-12 { top: 130px; left: 70px; transform: rotate(5deg) scale(0.8); z-index: 5;}
+        .heart-pos-4 { top: -30px; left: 140px; transform: rotate(25deg) scale(0.8); z-index: 2;}
+        
+        .heart-pos-5 { top: 25px; left: -95px; transform: rotate(-15deg) scale(0.8); z-index: 3;}
+        .heart-pos-6 { top: 15px; left: -10px; transform: rotate(-5deg) scale(0.8); z-index: 2;}
+        .heart-pos-7 { top: 15px; left: 80px; transform: rotate(5deg) scale(0.8); z-index: 2;}
+        .heart-pos-8 { top: 25px; left: 165px; transform: rotate(15deg) scale(0.8); z-index: 3;}
+        
+        .heart-pos-9 { top: 85px; left: -55px; transform: rotate(-10deg) scale(0.8); z-index: 4;}
+        .heart-pos-10 { top: 85px; left: 125px; transform: rotate(10deg) scale(0.8); z-index: 4;}
+        
+        .heart-pos-11 { top: 135px; left: -10px; transform: rotate(-5deg) scale(0.8); z-index: 5;}
+        .heart-pos-12 { top: 135px; left: 70px; transform: rotate(5deg) scale(0.8); z-index: 5;}
 
         /* Lời nhắn cuối cùng */
         #final-message {
@@ -110,23 +113,27 @@
             opacity: 0; transition: all 1s ease-in-out; text-align: center; width: 100%; z-index: 10;
         }
 
-        /* Responsive cho máy tính */
+        /* TOẠ ĐỘ MỚI: Xếp thành hình trái tim TRÒN TRỊA, BẦU BĨNH (Cho Máy Tính) */
         @media (min-width: 768px) {
             .polaroid { width: 130px; height: 160px; }
             #message1 { font-size: 45px; }
             #final-message { font-size: 60px; bottom: 12%; }
-            .heart-pos-1 { top: -60px; left: -100px; transform: rotate(-20deg) scale(1); }
-            .heart-pos-2 { top: -90px; left: 10px; transform: rotate(-10deg) scale(1); }
-            .heart-pos-3 { top: -90px; left: 120px; transform: rotate(10deg) scale(1); }
-            .heart-pos-4 { top: -60px; left: 230px; transform: rotate(20deg) scale(1); }
-            .heart-pos-5 { top: 40px; left: -140px; transform: rotate(-15deg) scale(1); }
-            .heart-pos-6 { top: 20px; left: -20px; transform: rotate(-5deg) scale(1); }
-            .heart-pos-7 { top: 20px; left: 150px; transform: rotate(5deg) scale(1); }
-            .heart-pos-8 { top: 40px; left: 270px; transform: rotate(15deg) scale(1); }
-            .heart-pos-9 { top: 140px; left: -70px; transform: rotate(-10deg) scale(1); }
-            .heart-pos-10 { top: 140px; left: 200px; transform: rotate(10deg) scale(1); }
-            .heart-pos-11 { top: 230px; left: -10px; transform: rotate(-5deg) scale(1); }
-            .heart-pos-12 { top: 230px; left: 140px; transform: rotate(5deg) scale(1); }
+            
+            .heart-pos-1 { top: -40px; left: -110px; transform: rotate(-25deg) scale(1); }
+            .heart-pos-2 { top: -85px; left: 0px; transform: rotate(-10deg) scale(1); }
+            .heart-pos-3 { top: -85px; left: 110px; transform: rotate(10deg) scale(1); }
+            .heart-pos-4 { top: -40px; left: 220px; transform: rotate(25deg) scale(1); }
+            
+            .heart-pos-5 { top: 45px; left: -150px; transform: rotate(-15deg) scale(1); }
+            .heart-pos-6 { top: 25px; left: -20px; transform: rotate(-5deg) scale(1); }
+            .heart-pos-7 { top: 25px; left: 130px; transform: rotate(5deg) scale(1); }
+            .heart-pos-8 { top: 45px; left: 260px; transform: rotate(15deg) scale(1); }
+            
+            .heart-pos-9 { top: 140px; left: -80px; transform: rotate(-10deg) scale(1); }
+            .heart-pos-10 { top: 140px; left: 190px; transform: rotate(10deg) scale(1); }
+            
+            .heart-pos-11 { top: 220px; left: -10px; transform: rotate(-5deg) scale(1); }
+            .heart-pos-12 { top: 220px; left: 120px; transform: rotate(5deg) scale(1); }
         }
 
         /* Hiệu ứng trái tim theo chuột */
@@ -172,15 +179,13 @@
     </div>
 
     <script>
-        // ================= 5 DÒNG LỜI CHÚC ĐẦU TIÊN TỰ ĐỘNG CHẠY =================
         const introLines = [
             "Chào cô gái đáng yêu nhất của anh, người đang mở chiếc hộp bí mật này... ✨",
             "Anh vốn không phải là một người giỏi nói những lời hoa mỹ ngọt ngào...",
-            "Nhưng mỗi khoảnh khắc được ở bên em đều là báu vật vô giá đối với anh. 💖",
-            "Cảm ơn em vì đã đến, đã luôn bao dung và mang hạnh phúc tới cho anh.",
+            "Nhưng mỗi khoảnh khắc được nhìn thấy nụ cười của em đều làm anh hạnh phúc. 💖",
+            "Cảm ơn em vì đã đến, đã luôn bao dung và mang ánh sáng tới cuộc đời anh.",
             "Bây giờ, hãy cùng anh ngắm nhìn những khoảnh khắc xinh đẹp và đáng yêu nhất của em nhé! 👇"
         ];
-        // =========================================================================
 
         let currentLine = 0;
 
@@ -209,7 +214,7 @@
                         currentLine++;
                         showIntroLines(); 
                     }, 1000); 
-                }, 3000); // Mỗi câu hiển thị trong 3 giây để người xem đọc thong thả
+                }, 3000); 
             } else {
                 showPhotos(); 
             }
@@ -237,15 +242,12 @@
         function fireworksAndFinalText() {
             const finalMsg = document.getElementById('final-message');
             
-            // Nhịp 1: Hiện câu dẫn
             finalMsg.innerHTML = "Anh muốn nói với em...";
             finalMsg.style.opacity = '1';
             
-            // Bắn pháo hoa trái tim nổ tung
             var defaults = { spread: 360, ticks: 100, gravity: 0, decay: 0.94, startVelocity: 30, shapes: ['heart'], colors: ['FF1493', 'FF0000', 'FF69B4'] };
             confetti({ ...defaults, particleCount: 50, origin: { x: 0.5, y: 0.5 } });
             
-            // Nhịp 2: Sau 3 giây đổi sang "I Love You"
             setTimeout(() => {
                 finalMsg.style.opacity = '0';
                 setTimeout(() => {
