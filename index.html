@@ -9,7 +9,6 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            /* Đổi nền sang dải màu hồng gradient cực kỳ lãng mạn */
             background: linear-gradient(135deg, #ffdde1 0%, #ee9ca7 100%);
             color: #fff;
             font-family: 'Quicksand', sans-serif;
@@ -20,7 +19,7 @@
             height: 100vh;
         }
 
-        /* Hiệu ứng nền tuyết rơi trắng trên nền hồng */
+        /* Nền tuyết rơi */
         .snow {
             position: absolute; width: 100%; height: 100%; top: 0; left: 0; pointer-events: none; z-index: 0;
             background: url('https://raw.githubusercontent.com/danielstuart14/CSS_Fades_And_Animations/master/snow.png');
@@ -34,16 +33,10 @@
 
         /* Hộp quà */
         #gift-container {
-            z-index: 10;
-            text-align: center;
-            cursor: pointer;
+            z-index: 10; text-align: center; cursor: pointer;
             transition: transform 0.5s, opacity 0.5s;
         }
-        .gift-box {
-            font-size: 80px;
-            animation: pulse 1.5s infinite, glow 2s infinite alternate;
-        }
-        /* Đổi màu chữ lúc chưa mở quà để nổi bật trên nền hồng */
+        .gift-box { font-size: 80px; animation: pulse 1.5s infinite, glow 2s infinite alternate; }
         .click-text { margin-top: 20px; font-size: 20px; color: #d81b60; font-weight: bold; animation: blink 1s infinite; }
         
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
@@ -56,37 +49,29 @@
             flex-direction: column; align-items: center; justify-content: center;
         }
 
-        /* Lời nhắn viết tay */
+        /* Lời nhắn xuất hiện rồi biến mất */
         #message1 {
             font-family: 'Dancing Script', cursive;
-            font-size: 35px; 
-            color: #c2185b; /* Màu đỏ hồng đậm để dễ đọc trên nền hồng sáng */
+            font-size: 32px; color: #c2185b;
             text-shadow: 0 0 5px rgba(255,255,255,0.8);
             text-align: center; margin-bottom: 20px;
-            min-height: 50px; z-index: 6; padding: 0 20px;
+            min-height: 80px; z-index: 6; padding: 0 20px;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
         }
 
         /* Polaroid Gallery */
-        .gallery {
-            position: relative; width: 300px; height: 300px;
-            transition: all 2s ease-in-out;
-            margin-top: 50px;
-        }
+        .gallery { position: relative; width: 300px; height: 300px; transition: all 2s ease-in-out; margin-top: 50px; }
         .polaroid {
-            position: absolute; width: 100px; height: 120px;
-            background: white; padding: 4px 4px 15px 4px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            opacity: 0; transform: scale(0) rotate(0deg);
-            transition: all 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            cursor: pointer;
+            position: absolute; width: 100px; height: 120px; background: white; padding: 4px 4px 15px 4px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3); opacity: 0; transform: scale(0) rotate(0deg);
+            transition: all 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55); cursor: pointer;
         }
         .polaroid img { width: 100%; height: 100%; object-fit: cover; }
         
-        /* Hiệu ứng lật ảnh khi click */
         .polaroid.flipped { 
             transform: scale(2) rotate(0deg) translate(-50%, -50%) !important; 
-            top: 50% !important; left: 50% !important; 
-            z-index: 999 !important; 
+            top: 50% !important; left: 50% !important; z-index: 999 !important; 
             box-shadow: 0 10px 30px rgba(255,20,147,0.6); 
         }
 
@@ -109,59 +94,45 @@
         .heart-pos-2 { top: -60px; left: 0px; transform: rotate(-10deg) scale(0.8); z-index: 1;}
         .heart-pos-3 { top: -60px; left: 70px; transform: rotate(10deg) scale(0.8); z-index: 1;}
         .heart-pos-4 { top: -40px; left: 130px; transform: rotate(20deg) scale(0.8); z-index: 2;}
-        
         .heart-pos-5 { top: 20px; left: -80px; transform: rotate(-15deg) scale(0.8); z-index: 3;}
         .heart-pos-6 { top: 10px; left: -10px; transform: rotate(-5deg) scale(0.8); z-index: 2;}
         .heart-pos-7 { top: 10px; left: 80px; transform: rotate(5deg) scale(0.8); z-index: 2;}
         .heart-pos-8 { top: 20px; left: 150px; transform: rotate(15deg) scale(0.8); z-index: 3;}
-        
         .heart-pos-9 { top: 80px; left: -40px; transform: rotate(-10deg) scale(0.8); z-index: 4;}
         .heart-pos-10 { top: 80px; left: 110px; transform: rotate(10deg) scale(0.8); z-index: 4;}
-        
         .heart-pos-11 { top: 130px; left: 0px; transform: rotate(-5deg) scale(0.8); z-index: 5;}
         .heart-pos-12 { top: 130px; left: 70px; transform: rotate(5deg) scale(0.8); z-index: 5;}
 
         /* Lời nhắn cuối cùng */
         #final-message {
             position: absolute; bottom: 8%; font-family: 'Dancing Script', cursive;
-            font-size: 45px; 
-            color: #d81b60; /* Màu đỏ đô */
-            text-shadow: 0 0 10px #fff, 0 0 20px #ffdde1; /* Viền sáng trắng hồng */
-            opacity: 0; transition: opacity 2s ease-in-out; text-align: center; width: 100%; z-index: 10;
+            font-size: 40px; color: #d81b60; text-shadow: 0 0 10px #fff, 0 0 20px #ffdde1;
+            opacity: 0; transition: all 1s ease-in-out; text-align: center; width: 100%; z-index: 10;
         }
 
         /* Responsive cho máy tính */
         @media (min-width: 768px) {
             .polaroid { width: 130px; height: 160px; }
-            #message1 { font-size: 50px; }
-            #final-message { font-size: 65px; bottom: 12%; }
-            
+            #message1 { font-size: 45px; }
+            #final-message { font-size: 60px; bottom: 12%; }
             .heart-pos-1 { top: -60px; left: -100px; transform: rotate(-20deg) scale(1); }
             .heart-pos-2 { top: -90px; left: 10px; transform: rotate(-10deg) scale(1); }
             .heart-pos-3 { top: -90px; left: 120px; transform: rotate(10deg) scale(1); }
             .heart-pos-4 { top: -60px; left: 230px; transform: rotate(20deg) scale(1); }
-            
             .heart-pos-5 { top: 40px; left: -140px; transform: rotate(-15deg) scale(1); }
             .heart-pos-6 { top: 20px; left: -20px; transform: rotate(-5deg) scale(1); }
             .heart-pos-7 { top: 20px; left: 150px; transform: rotate(5deg) scale(1); }
             .heart-pos-8 { top: 40px; left: 270px; transform: rotate(15deg) scale(1); }
-            
             .heart-pos-9 { top: 140px; left: -70px; transform: rotate(-10deg) scale(1); }
             .heart-pos-10 { top: 140px; left: 200px; transform: rotate(10deg) scale(1); }
-            
             .heart-pos-11 { top: 230px; left: -10px; transform: rotate(-5deg) scale(1); }
             .heart-pos-12 { top: 230px; left: 140px; transform: rotate(5deg) scale(1); }
         }
 
-        /* --- CSS MỚI CHO HIỆU ỨNG TRÁI TIM THEO CHUỘT --- */
+        /* Hiệu ứng trái tim theo chuột */
         .mouse-heart {
-            position: absolute;
-            pointer-events: none; /* Tránh cản trở việc click vào ảnh */
-            font-size: 20px;
-            color: #ff2a70;
-            z-index: 9999;
-            transform: translate(-50%, -50%);
-            animation: floatUp 1s ease-out forwards;
+            position: absolute; pointer-events: none; font-size: 20px; color: #ff2a70; z-index: 9999;
+            transform: translate(-50%, -50%); animation: floatUp 1s ease-out forwards;
         }
         @keyframes floatUp {
             0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
@@ -172,7 +143,6 @@
 <body>
 
     <audio id="bg-music" src="nhac.mp3" loop></audio>
-
     <div class="snow"></div>
 
     <div id="gift-container" onclick="openGift()">
@@ -198,37 +168,50 @@
             <div class="polaroid pos-12" onclick="flipImage(this)"><img src="anh12.jpg" alt="Ảnh 12"></div>
         </div>
 
-        <div id="final-message">Yêu Em Mãi Mãi ❤️</div>
+        <div id="final-message"></div>
     </div>
 
     <script>
-        // Lời nhắn bạn muốn viết
-        const textToType = "Gửi em, cô gái xinh đẹp nhất của anh... Cảm ơn em vì đã đến! ❤️";
-        let typeIndex = 0;
+        // ================= 5 DÒNG LỜI CHÚC ĐẦU TIÊN TỰ ĐỘNG CHẠY =================
+        const introLines = [
+            "Chào cô gái đáng yêu nhất của anh, người đang mở chiếc hộp bí mật này... ✨",
+            "Anh vốn không phải là một người giỏi nói những lời hoa mỹ ngọt ngào...",
+            "Nhưng mỗi khoảnh khắc được ở bên em đều là báu vật vô giá đối với anh. 💖",
+            "Cảm ơn em vì đã đến, đã luôn bao dung và mang hạnh phúc tới cho anh.",
+            "Bây giờ, hãy cùng anh nhìn lại hành trình yêu thương của chúng mình nhé! 👇"
+        ];
+        // =========================================================================
+
+        let currentLine = 0;
 
         function openGift() {
             document.getElementById('bg-music').play().catch(e => console.log("Cần tương tác để phát nhạc"));
-            
             const giftContainer = document.getElementById('gift-container');
             giftContainer.style.transform = 'scale(0)';
             giftContainer.style.opacity = '0';
             
             setTimeout(() => {
                 giftContainer.style.display = 'none';
-                const mainContent = document.getElementById('main-content');
-                mainContent.style.display = 'flex';
-                
-                typeWriter();
+                document.getElementById('main-content').style.display = 'flex';
+                showIntroLines(); 
             }, 500);
         }
 
-        function typeWriter() {
-            if (typeIndex < textToType.length) {
-                document.getElementById("message1").innerHTML += textToType.charAt(typeIndex);
-                typeIndex++;
-                setTimeout(typeWriter, 80); 
+        function showIntroLines() {
+            const msgEl = document.getElementById("message1");
+            if (currentLine < introLines.length) {
+                msgEl.innerHTML = introLines[currentLine];
+                msgEl.style.opacity = 1; 
+                
+                setTimeout(() => {
+                    msgEl.style.opacity = 0; 
+                    setTimeout(() => {
+                        currentLine++;
+                        showIntroLines(); 
+                    }, 1000); 
+                }, 3000); // Mỗi câu hiển thị trong 3 giây để người xem đọc thong thả
             } else {
-                showPhotos();
+                showPhotos(); 
             }
         }
 
@@ -238,10 +221,9 @@
                 setTimeout(() => {
                     photo.style.opacity = '1';
                     photo.style.transform = getComputedStyle(photo).transform + " scale(1)";
-                }, index * 250); 
+                }, index * 200); 
             });
-
-            setTimeout(formHeart, photos.length * 250 + 1500);
+            setTimeout(formHeart, photos.length * 200 + 1000);
         }
 
         function formHeart() {
@@ -249,29 +231,35 @@
             photos.forEach((photo, index) => {
                 photo.className = `polaroid heart-pos-${index + 1}`;
             });
-
-            setTimeout(fireworksAndFinalText, 2500);
+            setTimeout(fireworksAndFinalText, 2000);
         }
 
         function fireworksAndFinalText() {
-            document.getElementById('final-message').style.opacity = '1';
+            const finalMsg = document.getElementById('final-message');
             
+            // Nhịp 1: Hiện câu dẫn
+            finalMsg.innerHTML = "Anh muốn nói với em...";
+            finalMsg.style.opacity = '1';
+            
+            // Bắn pháo hoa trái tim nổ tung
             var defaults = { spread: 360, ticks: 100, gravity: 0, decay: 0.94, startVelocity: 30, shapes: ['heart'], colors: ['FF1493', 'FF0000', 'FF69B4'] };
             confetti({ ...defaults, particleCount: 50, origin: { x: 0.5, y: 0.5 } });
-            setTimeout(() => confetti({ ...defaults, particleCount: 50, origin: { x: 0.2, y: 0.5 } }), 500);
-            setTimeout(() => confetti({ ...defaults, particleCount: 50, origin: { x: 0.8, y: 0.5 } }), 1000);
             
-            setInterval(() => {
-                confetti({
-                    particleCount: 15, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#ff0055', '#ffccd5', '#ffffff']
-                });
-                confetti({
-                    particleCount: 15, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#ff0055', '#ffccd5', '#ffffff']
-                });
+            // Nhịp 2: Sau 3 giây đổi sang "I Love You"
+            setTimeout(() => {
+                finalMsg.style.opacity = '0';
+                setTimeout(() => {
+                    finalMsg.innerHTML = "I Love You ❤️";
+                    finalMsg.style.opacity = '1';
+                    
+                    setInterval(() => {
+                        confetti({ particleCount: 15, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#ff0055', '#ffffff'] });
+                        confetti({ particleCount: 15, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#ff0055', '#ffffff'] });
+                    }, 2500);
+                }, 1000);
             }, 3000);
         }
 
-        // Click để xem/lật ảnh
         function flipImage(element) {
             if (element.classList.contains('flipped')) {
                 element.classList.remove('flipped');
@@ -281,27 +269,18 @@
             }
         }
 
-        // --- SCRIPT MỚI: HIỆU ỨNG TRÁI TIM BAY THEO CHUỘT ---
+        // Tạo trái tim theo chuột
         document.addEventListener('mousemove', function(e) {
-            // Giới hạn tỷ lệ tạo trái tim để không bị lag web (tạo ngẫu nhiên)
             if(Math.random() > 0.8) return; 
-
             const heart = document.createElement('div');
-            heart.innerHTML = '❤️'; // Hoặc '💖'
+            heart.innerHTML = '❤️';
             heart.className = 'mouse-heart';
             heart.style.left = e.pageX + 'px';
             heart.style.top = e.pageY + 'px';
-            
-            // Đổi kích thước ngẫu nhiên một chút cho tự nhiên
             const size = Math.floor(Math.random() * 15) + 10;
             heart.style.fontSize = size + 'px';
-
             document.body.appendChild(heart);
-
-            // Xóa trái tim sau 1 giây (khớp với thời gian animation)
-            setTimeout(() => {
-                heart.remove();
-            }, 1000);
+            setTimeout(() => { heart.remove(); }, 1000);
         });
     </script>
 </body>
