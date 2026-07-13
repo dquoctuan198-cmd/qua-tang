@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Gift For You ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background-color: #0a0a0a;
+            color: #fff;
+            font-family: 'Quicksand', sans-serif;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Hiệu ứng nền sao / tuyết rơi */
+        .snow {
+            position: absolute; width: 100%; height: 100%; top: 0; left: 0; pointer-events: none; z-index: 0;
+            background: url('https://raw.githubusercontent.com/danielstuart14/CSS_Fades_And_Animations/master/snow.png');
+            animation: fall 20s linear infinite;
+            opacity: 0.5;
+        }
+        @keyframes fall {
+            0% { background-position: 0px 0px; }
+            100% { background-position: 500px 1000px; }
+        }
+
+        /* Hộp quà */
+        #gift-container {
+            z-index: 10;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.5s, opacity 0.5s;
+        }
+        .gift-box {
+            font-size: 80px;
+            animation: pulse 1.5s infinite, glow 2s infinite alternate;
+        }
+        .click-text { margin-top: 20px; font-size: 20px; color: #ffb3c6; animation: blink 1s infinite; }
+        
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+        @keyframes glow { from { text-shadow: 0 0 10px #ff0055, 0 0 20px #ff0055; } to { text-shadow: 0 0 20px #ffaa00, 0 0 30px #ffaa00; } }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+        /* Vùng nội dung chính */
+        #main-content {
+            display: none; width: 100%; height: 100%; position: absolute; top: 0; left: 0; z-index: 5;
+            flex-direction: column; align-items: center; justify-content: center;
+        }
+
+        /* Lời nhắn viết tay */
+        #message1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 35px; color: #ffccd5; text-align: center; margin-bottom: 20px;
+            min-height: 50px; z-index: 6; padding: 0 20px;
+        }
+
+        /* Polaroid Gallery */
+        .gallery {
+            position: relative; width: 300px; height: 300px;
+            transition: all 2s ease-in-out;
+            margin-top: 50px;
+        }
+        .polaroid {
+            position: absolute; width: 100px; height: 120px;
+            background: white; padding: 4px 4px 15px 4px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            opacity: 0; transform: scale(0) rotate(0deg);
+            transition: all 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            cursor: pointer;
+        }
+        .polaroid img { width: 100%; height: 100%; object-fit: cover; }
+        
+        /* Hiệu ứng lật ảnh khi click vào Polaroid */
+        .polaroid.flipped { 
+            transform: scale(2) rotate(0deg) translate(-50%, -50%) !important; 
+            top: 50% !important; left: 50% !important; 
+            z-index: 999 !important; 
+            box-shadow: 0 10px 30px rgba(255,105,180,0.8); 
+        }
+
+        /* 12 Vị trí rải ảnh lộn xộn ban đầu */
+        .pos-1 { top: -20%; left: -30%; transform: rotate(-15deg); }
+        .pos-2 { top: -40%; left: 30%; transform: rotate(10deg); }
+        .pos-3 { top: 10%; left: -50%; transform: rotate(-5deg); }
+        .pos-4 { top: 20%; left: 60%; transform: rotate(20deg); }
+        .pos-5 { top: 50%; left: -60%; transform: rotate(-25deg); }
+        .pos-6 { top: 60%; left: 50%; transform: rotate(15deg); }
+        .pos-7 { top: 90%; left: -40%; transform: rotate(-10deg); }
+        .pos-8 { top: 80%; left: 40%; transform: rotate(25deg); }
+        .pos-9 { top: -10%; left: 0%; transform: rotate(-8deg); }
+        .pos-10 { top: 40%; left: 10%; transform: rotate(12deg); }
+        .pos-11 { top: 110%; left: -10%; transform: rotate(-18deg); }
+        .pos-12 { top: 100%; left: 20%; transform: rotate(8deg); }
+
+        /* 12 Vị trí xếp thành hình trái tim (Tỷ lệ cho Mobile) */
+        .heart-pos-1 { top: -40px; left: -60px; transform: rotate(-20deg) scale(0.8); z-index: 2;}
+        .heart-pos-2 { top: -60px; left: 0px; transform: rotate(-10deg) scale(0.8); z-index: 1;}
+        .heart-pos-3 { top: -60px; left: 70px; transform: rotate(10deg) scale(0.8); z-index: 1;}
+        .heart-pos-4 { top: -40px; left: 130px; transform: rotate(20deg) scale(0.8); z-index: 2;}
+        
+        .heart-pos-5 { top: 20px; left: -80px; transform: rotate(-15deg) scale(0.8); z-index: 3;}
+        .heart-pos-6 { top: 10px; left: -10px; transform: rotate(-5deg) scale(0.8); z-index: 2;}
+        .heart-pos-7 { top: 10px; left: 80px; transform: rotate(5deg) scale(0.8); z-index: 2;}
+        .heart-pos-8 { top: 20px; left: 150px; transform: rotate(15deg) scale(0.8); z-index: 3;}
+        
+        .heart-pos-9 { top: 80px; left: -40px; transform: rotate(-10deg) scale(0.8); z-index: 4;}
+        .heart-pos-10 { top: 80px; left: 110px; transform: rotate(10deg) scale(0.8); z-index: 4;}
+        
+        .heart-pos-11 { top: 130px; left: 0px; transform: rotate(-5deg) scale(0.8); z-index: 5;}
+        .heart-pos-12 { top: 130px; left: 70px; transform: rotate(5deg) scale(0.8); z-index: 5;}
+
+        /* Lời nhắn cuối cùng */
+        #final-message {
+            position: absolute; bottom: 8%; font-family: 'Dancing Script', cursive;
+            font-size: 45px; color: #ff0055; text-shadow: 0 0 10px #fff;
+            opacity: 0; transition: opacity 2s ease-in-out; text-align: center; width: 100%; z-index: 10;
+        }
+
+        /* Responsive cho máy tính (Phóng to trái tim) */
+        @media (min-width: 768px) {
+            .polaroid { width: 130px; height: 160px; }
+            #message1 { font-size: 50px; }
+            #final-message { font-size: 65px; bottom: 12%; }
+            
+            .heart-pos-1 { top: -60px; left: -100px; transform: rotate(-20deg) scale(1); }
+            .heart-pos-2 { top: -90px; left: 10px; transform: rotate(-10deg) scale(1); }
+            .heart-pos-3 { top: -90px; left: 120px; transform: rotate(10deg) scale(1); }
+            .heart-pos-4 { top: -60px; left: 230px; transform: rotate(20deg) scale(1); }
+            
+            .heart-pos-5 { top: 40px; left: -140px; transform: rotate(-15deg) scale(1); }
+            .heart-pos-6 { top: 20px; left: -20px; transform: rotate(-5deg) scale(1); }
+            .heart-pos-7 { top: 20px; left: 150px; transform: rotate(5deg) scale(1); }
+            .heart-pos-8 { top: 40px; left: 270px; transform: rotate(15deg) scale(1); }
+            
+            .heart-pos-9 { top: 140px; left: -70px; transform: rotate(-10deg) scale(1); }
+            .heart-pos-10 { top: 140px; left: 200px; transform: rotate(10deg) scale(1); }
+            
+            .heart-pos-11 { top: 230px; left: -10px; transform: rotate(-5deg) scale(1); }
+            .heart-pos-12 { top: 230px; left: 140px; transform: rotate(5deg) scale(1); }
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="bg-music" src="nhac.mp3" loop></audio>
+
+    <div class="snow"></div>
+
+    <div id="gift-container" onclick="openGift()">
+        <div class="gift-box">🎁</div>
+        <div class="click-text">Chạm để mở quà nhé! ❤️</div>
+    </div>
+
+    <div id="main-content">
+        <div id="message1"></div>
+        
+        <div class="gallery" id="gallery">
+            <div class="polaroid pos-1" onclick="flipImage(this)"><img src="anh1.jpg" alt="Ảnh 1"></div>
+            <div class="polaroid pos-2" onclick="flipImage(this)"><img src="anh2.jpg" alt="Ảnh 2"></div>
+            <div class="polaroid pos-3" onclick="flipImage(this)"><img src="anh3.jpg" alt="Ảnh 3"></div>
+            <div class="polaroid pos-4" onclick="flipImage(this)"><img src="anh4.jpg" alt="Ảnh 4"></div>
+            <div class="polaroid pos-5" onclick="flipImage(this)"><img src="anh5.jpg" alt="Ảnh 5"></div>
+            <div class="polaroid pos-6" onclick="flipImage(this)"><img src="anh6.jpg" alt="Ảnh 6"></div>
+            <div class="polaroid pos-7" onclick="flipImage(this)"><img src="anh7.jpg" alt="Ảnh 7"></div>
+            <div class="polaroid pos-8" onclick="flipImage(this)"><img src="anh8.jpg" alt="Ảnh 8"></div>
+            <div class="polaroid pos-9" onclick="flipImage(this)"><img src="anh9.jpg" alt="Ảnh 9"></div>
+            <div class="polaroid pos-10" onclick="flipImage(this)"><img src="anh10.jpg" alt="Ảnh 10"></div>
+            <div class="polaroid pos-11" onclick="flipImage(this)"><img src="anh11.jpg" alt="Ảnh 11"></div>
+            <div class="polaroid pos-12" onclick="flipImage(this)"><img src="anh12.jpg" alt="Ảnh 12"></div>
+        </div>
+
+        <div id="final-message">I Love You ❤️</div>
+    </div>
+
+    <script>
+        // Lời nhắn bạn muốn viết
+        const textToType = "Anh có một điều bí mật muốn dành cho em...";
+        let typeIndex = 0;
+
+        function openGift() {
+            document.getElementById('bg-music').play().catch(e => console.log("Cần tương tác để phát nhạc"));
+            
+            const giftContainer = document.getElementById('gift-container');
+            giftContainer.style.transform = 'scale(0)';
+            giftContainer.style.opacity = '0';
+            
+            setTimeout(() => {
+                giftContainer.style.display = 'none';
+                const mainContent = document.getElementById('main-content');
+                mainContent.style.display = 'flex';
+                
+                typeWriter();
+            }, 500);
+        }
+
+        function typeWriter() {
+            if (typeIndex < textToType.length) {
+                document.getElementById("message1").innerHTML += textToType.charAt(typeIndex);
+                typeIndex++;
+                setTimeout(typeWriter, 80); // Tăng tốc độ gõ chữ một chút
+            } else {
+                showPhotos();
+            }
+        }
+
+        function showPhotos() {
+            const photos = document.querySelectorAll('.polaroid');
+            photos.forEach((photo, index) => {
+                setTimeout(() => {
+                    photo.style.opacity = '1';
+                    // Phục hồi lại transform ban đầu thêm scale 1
+                    photo.style.transform = getComputedStyle(photo).transform + " scale(1)";
+                }, index * 250); // Rải ảnh nhanh hơn (cách nhau 0.25 giây)
+            });
+
+            // Sau khi rải xong 12 ảnh, đợi thêm 1.5 giây rồi ghép trái tim
+            setTimeout(formHeart, photos.length * 250 + 1500);
+        }
+
+        function formHeart() {
+            const photos = document.querySelectorAll('.polaroid');
+            photos.forEach((photo, index) => {
+                photo.className = `polaroid heart-pos-${index + 1}`;
+            });
+
+            // Hiện chữ chốt và bắn pháo hoa
+            setTimeout(fireworksAndFinalText, 2500);
+        }
+
+        function fireworksAndFinalText() {
+            document.getElementById('final-message').style.opacity = '1';
+            
+            var defaults = { spread: 360, ticks: 100, gravity: 0, decay: 0.94, startVelocity: 30, shapes: ['heart'], colors: ['FF1493', 'FF0000', 'FF69B4'] };
+            confetti({ ...defaults, particleCount: 50, origin: { x: 0.5, y: 0.5 } });
+            setTimeout(() => confetti({ ...defaults, particleCount: 50, origin: { x: 0.2, y: 0.5 } }), 500);
+            setTimeout(() => confetti({ ...defaults, particleCount: 50, origin: { x: 0.8, y: 0.5 } }), 1000);
+            
+            setInterval(() => {
+                confetti({
+                    particleCount: 15, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#ff0055', '#ffccd5']
+                });
+                confetti({
+                    particleCount: 15, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#ff0055', '#ffccd5']
+                });
+            }, 3000);
+        }
+
+        // Click để xem/lật ảnh
+        function flipImage(element) {
+            if (element.classList.contains('flipped')) {
+                element.classList.remove('flipped');
+            } else {
+                document.querySelectorAll('.polaroid').forEach(p => p.classList.remove('flipped'));
+                element.classList.add('flipped');
+            }
+        }
+    </script>
+</body>
+</html>
